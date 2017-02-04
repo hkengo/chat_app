@@ -22,6 +22,7 @@
 #  locked_at              :datetime
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  name                   :string           not null
 #
 
 class User < ApplicationRecord
@@ -29,4 +30,13 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+  
+  after_initialize :set_default_value
+  validates :name, presence: true
+  
+  private
+  
+  def set_default_value
+    self.name ||= self.email.split('@')[0]
+  end
 end
