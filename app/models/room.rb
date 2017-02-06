@@ -1,3 +1,5 @@
 class Room < ApplicationRecord
-  validates :title, length: { maximum: 50 }
+  has_many :messages
+  
+  validates :title, length: { maximum: 100 }
 end
