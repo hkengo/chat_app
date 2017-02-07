@@ -23,4 +23,8 @@ class Room < ApplicationRecord
       self.name.present? ? self.name : "グループ（#{users.count}人）"
     end
   end
+  
+  def channel
+    "room_channel_#{self.id}"
+  end
 end

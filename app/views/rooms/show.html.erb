@@ -5,7 +5,13 @@
 </div>
 
 <form>
-  <input type="hidden" class="js-room-id" value="<%= @room.id %>">
   <input type="text" class="js-content">
   <button class="js-submit-button">投稿</button>
 </form>
+
+<%# room_idを元にチャンネル作成をするために、関数化して引数（room_id）を渡す %>
+<%= javascript_tag do %>
+  $(document).ready(function(){
+    App.MakeRoomChannel(<%= @room.id %>)
+  });
+<% end %>

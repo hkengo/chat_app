@@ -1,6 +1,7 @@
 class RoomChannel < ApplicationCable::Channel
   def subscribed
-    stream_from @room_chennel if @room_chennel.present?
+    @room_id = params[:room_id]
+    stream_from Room.find(@room_id).channel
   end
 
   def unsubscribed
@@ -9,12 +10,8 @@ class RoomChannel < ApplicationCable::Channel
 
   def speak(message)
     # TODO ユーザー認証
-    room = Room.find(message['room_id'])
-    set_room_channel(room)
-    room.messages.create!(content: message['content'])
-  end
-  
-  def set_room_channel(room)
-    @room_chennel = "room_channel_#{room.id}"
+    Room.find(@room_id)
+        .messages
+        .create!(content: message['content'])
   end
 end
