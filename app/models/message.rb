@@ -13,4 +13,10 @@ class Message < ApplicationRecord
   belongs_to :room
   
   validates :content, presence: true, length: { maximum: 2048 }
+  
+  after_create_commit { MessageBroadcastJob.perform_later self }
+  
+  scope :order_for_chat_room, -> {
+    order("created_at ASC")
+  }
 end

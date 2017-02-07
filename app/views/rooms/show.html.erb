@@ -1,5 +1,11 @@
-<h1><%= @title %></h1>
+<h1><%= @room.title %></h1>
 
 <div id="messages">
-  <%= render @messages %>
+  <%= render @room.messages.order_for_chat_room %>
 </div>
+
+<form>
+  <input type="hidden" class="js-room-id" value="<%= @room.id %>">
+  <input type="text" class="js-content">
+  <button class="js-submit-button">投稿</button>
+</form>
