@@ -15,4 +15,12 @@ class UserRoom < ApplicationRecord
   
   validates :user_id, presence: true
   validates :room_id, presence: true
+  
+  def user
+    User.unscoped { super }
+  end
+  
+  def room
+    Room.unscoped { super }
+  end
 end

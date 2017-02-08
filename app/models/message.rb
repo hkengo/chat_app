@@ -10,6 +10,7 @@
 #
 
 class Message < ApplicationRecord
+  acts_as_paranoid
   belongs_to :room
   
   validates :content, presence: true, length: { maximum: 2048 }
@@ -19,4 +20,8 @@ class Message < ApplicationRecord
   scope :order_for_chat_room, -> {
     order("created_at ASC")
   }
+  
+  def room
+    Room.unscoped{ super }
+  end
 end
