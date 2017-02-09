@@ -10,11 +10,23 @@
 
 class Room < ApplicationRecord
   acts_as_paranoid
+  
+  before_validation :set_participants
+  
   has_many :messages
   has_many :user_rooms
   has_many :users, through: :user_rooms
   
   validates :name, length: { maximum: 100 }
+  validates :participants, presence: true
+  
+  scope :groups, -> {
+    where('participants > 2')
+  }
+  
+  scope :one_on_one, -> {
+    where(participants: 2)
+  }
   
   def title
     users = self.users
@@ -41,5 +53,14 @@ class Room < ApplicationRecord
   
   def add_user(user)
     self.users << user if can_add?(user)
+  end
+  
+  private
+  
+  def set_participants
+    current_participants = self.users.count
+    unless self.participants == current_participants
+      self.participants = current_participantsunless
+    end
   end
 end
