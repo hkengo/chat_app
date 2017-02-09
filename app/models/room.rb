@@ -18,14 +18,28 @@ class Room < ApplicationRecord
   
   def title
     users = self.users
-    if users.count == 1
-      users[0].name
+    user_count = users.count
+    
+    case user_count
+    when 1
+      title = users[0].name
+    when 2
+      title = users[1].name
     else
-      self.name.present? ? self.name : "グループ（#{users.count}人）"
+      title = self.name.present? ? self.name : "グループ"
     end
+    title + "（#{user_count}）"
   end
   
   def channel
     "room_channel_#{self.id}"
+  end
+  
+  def can_add?(user)
+    !self.users.find_by(email: user.email)
+  end
+  
+  def add_user(user)
+    self.users << user if can_add?(user)
   end
 end

@@ -6,16 +6,16 @@ class ApplicationController < ActionController::Base
   # ------------- devise設定 ------------------  
   # ログイン後の遷移先
   def after_sign_in_path_for(resource)
-    home_index_path
+    root_path
   end
   
   # ログアウト後の遷移先
   def after_sign_out_path_for(resource)
-    home_index_path
+    root_path
   end
   
   def set_user_id_to_cookies
-    cookies.signed[:user_id] ||= current_user.id if current_user
+    cookies.signed[:user_id] = current_user.id if current_user
   end
   
   def configure_permitted_parameters

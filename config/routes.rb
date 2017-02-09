@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
   
-  root 'home#index'
+  root 'rooms#index'
   resources :home, only: [:index, :show]
-  resources :rooms, only: [:show]
+  resources :rooms
 
   devise_for :users
   devise_scope :user do

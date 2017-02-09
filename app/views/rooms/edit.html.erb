@@ -1,0 +1,17 @@
+<h2>チャットルームを作成する</h2>
+
+<%= form_tag(room_path(@room), method: :patch) do %>
+  <div class="name">
+    <%= label_tag :name %>
+    <%= text_field_tag "name", @room.name %>
+  </div>
+  <br />
+  <% (1..10).each do |i| %>
+  <div class="user_emails">
+    <%= label_tag "email_#{i}" %>
+    <%= text_field_tag "user_emails[email_#{i}]" %>
+  </div>
+  <% end %>
+  
+  <%= submit_tag "グループ作成" %>
+<% end %>
