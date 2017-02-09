@@ -63,9 +63,6 @@ class Room < ApplicationRecord
   private
   
   def set_participants
-    current_participants = self.users.count
-    unless self.participants == current_participants
-      self.update(participants: current_participants)
-    end
+    self.participants = self.users.count
   end
 end
