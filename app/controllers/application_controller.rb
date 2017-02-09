@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   # ------------- devise設定 ------------------  
   # ログイン後の遷移先
   def after_sign_in_path_for(resource)
-    root_path
+    friends_path
   end
   
   # ログアウト後の遷移先

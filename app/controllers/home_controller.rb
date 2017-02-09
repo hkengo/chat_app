@@ -1,7 +1,11 @@
 class HomeController < ApplicationController
-  def index
+  def setting
+    
   end
-
-  def show
-  end
+  
+  # def index
+  # end
+  # 
+  # def show
+  # end
 end

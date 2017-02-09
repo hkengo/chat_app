@@ -7,7 +7,7 @@
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  deleted_at   :integer
-#  participants :integer          not null
+#  participants :integer          default("0"), not null
 #  is_group     :boolean          default("f"), not null
 #
 

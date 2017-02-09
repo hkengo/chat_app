@@ -16,7 +16,7 @@
   <%= form_tag(rooms_path, method: "post") do %>
     <%= hidden_field_tag "is_group", false %>
     <%= hidden_field_tag "name", @user.name %>
-    <%= hidden_field_tag "user_emails[email_0]", @user.email %>
+    <%= hidden_field_tag "user_ids[]", @user.id %>
     <%= submit_tag "チャット" %>
   <% end %>
 <% end %>

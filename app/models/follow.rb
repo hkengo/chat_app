@@ -8,7 +8,7 @@
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  deleted_at   :integer
-#  is_blocked   :boolean          not null
+#  is_blocked   :boolean          default("f"), not null
 #
 
 class Follow < ApplicationRecord

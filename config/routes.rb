@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
   
   root 'rooms#index'
-  resources :home, only: [:index, :show]
+  # resources :home, only: [:index, :show]
+  namespace :home do
+    get :setting
+  end
   resources :rooms
   resources :friends, only: [:index, :new] do
     patch :follow

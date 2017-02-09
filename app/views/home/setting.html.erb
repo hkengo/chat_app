@@ -1,0 +1,18 @@
+<h2>グループ設定</h2>
+<ul>
+  <li><%= link_to "グループを作成", new_room_path %></li>
+</ul>
+
+<h2>ユーザー設定</h2>
+<ul>
+  <li><%= link_to "ユーザー情報詳細", users_path(current_user) %></li>
+  <li><%= link_to 'ユーザ情報設定', edit_user_registration_path %></li>
+  <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
+</ul>
+
+<h2>友達設定</h2>
+<ul>
+  <li><%= link_to "友達を探す", new_friend_path %></li>
+  <li>友達かも？</li>
+  <li>ブロックリスト</li>
+</ul>

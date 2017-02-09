@@ -1,6 +1,7 @@
 class RoomsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_room, only: [:edit, :update, :destroy, :show]
+  before_action :set_friend_users, only: [:new, :edit]
   
   def new
     @room = Room.new
@@ -8,7 +9,7 @@ class RoomsController < ApplicationController
   
   def create
     @room = current_user.rooms.create(room_params)
-    add_users if params[:user_emails].present?
+    add_users if params[:user_ids].present?
     
     if flash.now[:alert]
       render 'edit'
@@ -22,7 +23,7 @@ class RoomsController < ApplicationController
   
   def update
     @room.update(room_params)
-    add_users if params[:user_emails].present?
+    add_users if params[:user_ids].present?
     
     if flash.now[:alert]
       render 'edit'
@@ -57,20 +58,24 @@ class RoomsController < ApplicationController
     @room = current_user.rooms.find(params[:id])
   end
   
+  def set_friend_users
+    @friend_users = current_user.following
+  end
+  
   def add_users
     # nil・空文字・重複を消す
-    user_emails = params[:user_emails].values.reject(&:blank?).uniq
+    # user_emails = params[:user_emails].values.reject(&:blank?).uniq
     add_cuccess, add_fail = [], []
     return_users = []
     
-    user_emails.each do |email|
-      user = User.find_by(email: email)
+    params[:user_ids].each do |user_id|
+      user = User.find(user_id.to_i)
       if user && @room.can_add?(user)
         @room.add_user(user)
         return_users << user
-        add_cuccess << email
+        add_cuccess << user.name
       else
-        add_fail << email
+        add_fail << user.name
       end
     end
     

@@ -5,5 +5,3 @@
     <p><%= link_to room.title, room_path(room) %>　　<%= link_to "編集", edit_room_path(room) %>　<%= link_to "削除", room_path(room), method: :delete, data: { confirm: "本当にチャットルーム#{room.name}を削除しますか？" } %></p>
   <% end %>
 <% end %>
-
-<%= link_to "チャットルームを作成", new_room_path %>

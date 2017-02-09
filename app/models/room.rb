@@ -7,14 +7,14 @@
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  deleted_at   :integer
-#  participants :integer          not null
+#  participants :integer          default("0"), not null
 #  is_group     :boolean          default("f"), not null
 #
 
 class Room < ApplicationRecord
   acts_as_paranoid
   
-  before_validation :set_participants
+  before_save :set_participants
   
   has_many :messages
   has_many :user_rooms
@@ -51,7 +51,9 @@ class Room < ApplicationRecord
   end
   
   def can_add?(user)
-    !self.users.find_by(email: user.email)
+    is_exist = !!self.users.find_by(email: user.email)
+    
+    is_group ? !is_exist : (!is_exist && self.users.count < 2)
   end
   
   def add_user(user)
@@ -63,7 +65,7 @@ class Room < ApplicationRecord
   def set_participants
     current_participants = self.users.count
     unless self.participants == current_participants
-      self.participants = current_participants
+      self.update(participants: current_participants)
     end
   end
 end

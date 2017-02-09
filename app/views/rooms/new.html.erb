@@ -1,17 +1,21 @@
-<h2>チャットルームを作成する</h2>
+<h2>グループを作成する</h2>
 
 <%= form_tag(rooms_path, method: "post") do %>
   <div class="name">
-    <%= label_tag :name %>
+    <%= label_tag :name, "グループ名" %>
     <%= text_field_tag "name" %>
   </div>
   <br />
-  <% (1..10).each do |i| %>
-  <div class="user_emails">
-    <%= label_tag "email_#{i}" %>
-    <%= text_field_tag "user_emails[email_#{i}]" %>
+  <div class="users">
+    <h4>招待するユーザー</h4>
+    <ul>
+    <% @friend_users.each_with_index do |user, i| %>
+      <li><%= check_box_tag "user_ids[]", user.id %>
+      <%= label_tag "user_ids[#{user.id}]", user.name %></li>
+    <% end %>
   </div>
-  <% end %>
+  
+  <br />
   <%= hidden_field_tag "is_group", true %>
   
   <%= submit_tag "グループ作成" %>
