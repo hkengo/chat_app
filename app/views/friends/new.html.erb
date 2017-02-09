@@ -1,0 +1,19 @@
+<h2>友達を探す</h2>
+
+<%= form_tag friends_search_path, method: :patch do %>
+  <%= label_tag "email" %>
+  <%= email_field_tag "email", @user ? @user.email : "" %>
+  <%= submit_tag "探す" %>
+<% end %>
+<br />
+
+<% if @user %>
+  <h4>名前: <%= @user.name %></h4>
+  <P>Email: <%= @user.email %></P>
+  
+  <% if current_user.following?(@user) %>
+    <p>すでに友達に追加されています。</p>
+  <% else %>
+    <%= link_to "友達に追加する", friend_follow_path(@user), method: :patch %>
+  <% end %>
+<% end %>

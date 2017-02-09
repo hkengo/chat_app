@@ -3,8 +3,14 @@ Rails.application.routes.draw do
   root 'rooms#index'
   resources :home, only: [:index, :show]
   resources :rooms
-  resources :friends, only: :index
-
+  resources :friends, only: [:index, :new] do
+    patch :follow
+    patch :unfollow
+  end
+  namespace :friends do
+    patch :search
+  end
+  
   devise_for :users, controllers: { registrations: 'users/registrations' }
   devise_scope :user do
     get 'users/:id', to: 'users/registrations#show', as: 'users'

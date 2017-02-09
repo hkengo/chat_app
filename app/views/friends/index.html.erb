@@ -5,5 +5,7 @@
 
 <h2>友達</h2>
 <% @friend_users.each do |user| %>
-  <%= link_to user.name, users_path(user) %>
+  <p><%= link_to user.name, users_path(user) %></p>
 <% end %>
+
+<%= link_to "+（友達を探す）", new_friend_path %>
