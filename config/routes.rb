@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   root 'rooms#index'
   resources :home, only: [:index, :show]
   resources :rooms
+  resources :friends, only: :index
 
   devise_for :users
   devise_scope :user do
