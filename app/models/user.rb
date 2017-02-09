@@ -36,8 +36,32 @@ class User < ApplicationRecord
   
   has_many :user_rooms
   has_many :rooms, through: :user_rooms
+  has_many :follows_from, class_name: Follow, foreign_key: :from_user_id, dependent: :destroy
+  has_many :follows_to,   class_name: Follow, foreign_key: :to_user_id,   dependent: :destroy
+  has_many :following, through: :follows_from, source: :to_user
+  has_many :followed,  through: :follows_to,   source: :from_user
   
   validates :name, presence: true
+  
+  def friends
+    self.following & self.followed
+  end
+  
+  def follow(user)
+    self.follows_from.create(to_user_id: user.id)
+  end
+  
+  def unfollow(user)
+    self.follows_from.find_by(to_user_id: user.id).destroy
+  end
+  
+  def following?(user)
+    following.include?(user)
+  end
+  
+  def followed_by?(user)
+    followed.include?(user)
+  end
   
   private
   
