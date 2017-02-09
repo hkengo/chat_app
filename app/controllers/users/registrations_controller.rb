@@ -2,10 +2,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
 # before_action :configure_sign_up_params, only: [:create]
 # before_action :configure_account_update_params, only: [:update]
 
-  # GET /resource/edit
-  # def show
-  #   super
-  # end
+  # GET /resource/:id
+  def show
+    @user = User.find(params[:id])
+    @one_on_one_room = current_user.room_with(@user)
+  end
 
   # GET /resource/sign_up
   # def new

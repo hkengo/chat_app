@@ -7,7 +7,7 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
-
+# TODO グループチャットかのフラグを持たせる
 class Room < ApplicationRecord
   acts_as_paranoid
   

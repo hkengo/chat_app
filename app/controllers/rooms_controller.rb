@@ -13,7 +13,7 @@ class RoomsController < ApplicationController
     if flash[:alert]
       render 'edit'
     else
-      redirect_to root_url, notice: flash[:notice]
+      redirect_to room_url(@room), notice: flash[:notice]
     end
   end
   

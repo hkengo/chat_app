@@ -1,2 +1,9 @@
-<h1>Friends#index</h1>
-<p>Find me in app/views/friends/index.html.erb</p>
+<h2>グループ</h2>
+<% @group_rooms.each do |room| %>
+  <%= link_to room.title, room_path(room) %>
+<% end %>
+
+<h2>友達</h2>
+<% @friend_users.each do |user| %>
+  <%= link_to user.name, users_path(user) %>
+<% end %>
