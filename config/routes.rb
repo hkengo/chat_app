@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     patch :follow
     patch :unfollow
     patch :block
+    patch :unblock
   end
   namespace :friends do
     patch :search

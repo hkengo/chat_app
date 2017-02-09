@@ -39,7 +39,7 @@ class User < ApplicationRecord
   has_many :rooms, through: :user_rooms
   has_many :follows_from, class_name: Follow, foreign_key: :from_user_id, dependent: :destroy
   has_many :follows_to,   class_name: Follow, foreign_key: :to_user_id,   dependent: :destroy
-  has_many :following, through: :follows_from, source: :to_user
+  has_many :following_with_blocked, through: :follows_from, source: :to_user
   has_many :followed,  through: :follows_to,   source: :from_user
   
   validates :name, presence: true
@@ -54,6 +54,15 @@ class User < ApplicationRecord
     self.following & self.followed
   end
   
+  # TODO テーブルの取得吟味（following・block_users）
+  def following
+    self.follows_from.where(is_blocked: false).map{|model| model.to_user }
+  end
+  
+  def block_users
+    self.follows_from.where(is_blocked: true).map{|model| model.to_user }
+  end
+  
   def follow(user)
     self.follows_from.create(to_user_id: user.id)
   end
@@ -66,6 +75,10 @@ class User < ApplicationRecord
     self.follows_from.find_by(to_user_id: user.id).block
   end
   
+  def unblock(user)
+    self.follows_from.find_by(to_user_id: user.id).unblock
+  end
+  
   def following?(user)
     following.include?(user)
   end
@@ -75,8 +88,10 @@ class User < ApplicationRecord
   end
   
   def blocked?(user)
-    return false unless user = self.follows_from.find_by(to_user_id: user.id)
-    user.is_blocked?
+    follows = self.follows_from.find_by(to_user_id: user.id)
+    return false unless follows
+    
+    follows.is_blocked?
   end
   
   private

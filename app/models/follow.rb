@@ -17,9 +17,13 @@ class Follow < ApplicationRecord
   belongs_to :from_user, class_name: User, foreign_key: :from_user_id
   belongs_to :to_user, class_name: User,   foreign_key: :to_user_id
   
-  default_scope { where(is_blocked: false) }
+  # default_scope { where(is_blocked: false) }
   
   def block
     self.update(is_blocked: true)
+  end
+  
+  def unblock
+    self.update(is_blocked: false)
   end
 end

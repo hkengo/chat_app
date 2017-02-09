@@ -13,6 +13,8 @@
   
   <% if current_user.following?(@user) %>
     <p>すでに友達に追加されています。</p>
+  <% elsif current_user.blocked?(@user) %>
+    <%= link_to "ブロックを解除する", friend_unblock_path(@user), method: :patch %>
   <% else %>
     <%= link_to "友達に追加する", friend_follow_path(@user), method: :patch %>
   <% end %>
