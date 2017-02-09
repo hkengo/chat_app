@@ -14,9 +14,9 @@ App.MakeRoomChannel = (room_id) ->
       if data
         $('#messages').append(data['message'])
 
-    speak: (room_id, content) ->
+    speak: (user_id, content) ->
       console.log('speak')
-      @perform 'speak', {room_id: room_id, content: content}
+      @perform 'speak', {user_id: user_id, content: content}
 
   $(document).on 'click', '.js-submit-button', ->
-    App.room.speak($('.js-room-id').val(), $('.js-content').val())
+    App.room.speak($('.js-user-id').val(), $('.js-content').val())

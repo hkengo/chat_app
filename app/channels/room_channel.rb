@@ -9,7 +9,7 @@ class RoomChannel < ApplicationCable::Channel
   end
 
   def speak(message)
-    @room.messages.create!(content: message['content'])
+    @room.messages.create!(user_id: message['user_id'], content: message['content'])
   end
   
   private

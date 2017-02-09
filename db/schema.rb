@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170209222411) do
+ActiveRecord::Schema.define(version: 20170209232406) do
 
   create_table "follows", force: :cascade do |t|
     t.integer  "from_user_id",                 null: false
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 20170209222411) do
     t.datetime "updated_at", null: false
     t.integer  "room_id",    null: false
     t.integer  "deleted_at"
+    t.integer  "user_id",    null: false
     t.index ["room_id"], name: "index_messages_on_room_id"
   end
 

@@ -8,6 +8,7 @@
 #  updated_at :datetime         not null
 #  room_id    :integer          not null
 #  deleted_at :integer
+#  user_id    :integer          not null
 #
 
 require 'test_helper'
