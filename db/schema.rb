@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170209102411) do
+ActiveRecord::Schema.define(version: 20170209155159) do
 
   create_table "follows", force: :cascade do |t|
     t.integer  "from_user_id", null: false
@@ -33,10 +33,11 @@ ActiveRecord::Schema.define(version: 20170209102411) do
 
   create_table "rooms", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
     t.integer  "deleted_at"
-    t.integer  "participants", null: false
+    t.integer  "participants",                 null: false
+    t.boolean  "is_group",     default: false, null: false
     t.index ["participants"], name: "index_rooms_on_participants"
   end
 

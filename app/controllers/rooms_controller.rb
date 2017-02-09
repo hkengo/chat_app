@@ -49,6 +49,7 @@ class RoomsController < ApplicationController
   def room_params
     params.permit(
       :name,
+      :is_group,
     )
   end
   

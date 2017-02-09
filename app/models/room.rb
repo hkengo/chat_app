@@ -19,6 +19,7 @@ class Room < ApplicationRecord
   
   validates :name, length: { maximum: 100 }
   validates :participants, presence: true
+  validates :is_group, presence: true, default: false
   
   scope :groups, -> {
     where('participants > 2')
@@ -40,7 +41,7 @@ class Room < ApplicationRecord
     else
       title = self.name.present? ? self.name : "グループ"
     end
-    title + "（#{user_count}）"
+    self.is_group? ? title + "（#{user_count}）" : title
   end
   
   def channel

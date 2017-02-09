@@ -11,11 +11,12 @@
 </div>
 
 <% if @one_on_one_room %>
+  <%= link_to "チャット", room_path(@one_on_one_room) %>
+<% else %>
   <%= form_tag(rooms_path, method: "post") do %>
+    <%= hidden_field_tag "is_group", false %>
     <%= hidden_field_tag "name", @user.name %>
     <%= hidden_field_tag "user_emails[email_0]", @user.email %>
     <%= submit_tag "チャット" %>
   <% end %>
-<% else %>
-  <%= link_to "チャット", room_path() %>
 <% end %>

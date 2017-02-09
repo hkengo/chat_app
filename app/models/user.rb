@@ -44,7 +44,9 @@ class User < ApplicationRecord
   validates :name, presence: true
   
   def room_with(user)
-    self.rooms.joins(:users).where('users.id = ? and rooms.participants = 2', user.id)
+    self.rooms.where(is_group: false)
+              .joins(:users)
+              .find_by('users.id = ? and rooms.participants = 2', user.id)
   end
   
   def mutual_following
