@@ -7,6 +7,8 @@
 #  to_user_id   :integer          not null
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
+#  deleted_at   :integer
+#  is_blocked   :boolean          not null
 #
 
 require 'test_helper'

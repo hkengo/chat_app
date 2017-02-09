@@ -5,7 +5,7 @@
 
 <h2>友達</h2>
 <% @friend_users.each do |user| %>
-  <p><%= link_to user.name, users_path(user) %>　<%= link_to "ブロック", friend_unfollow_path(user), method: :patch %></p>
+  <p><%= link_to user.name, users_path(user) %>　<%= link_to "ブロック", friend_block_path(user), method: :patch %></p>
 <% end %>
 
 <%= link_to "+（友達を探す）", new_friend_path %>

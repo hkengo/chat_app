@@ -10,13 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170209155159) do
+ActiveRecord::Schema.define(version: 20170209180703) do
 
   create_table "follows", force: :cascade do |t|
-    t.integer  "from_user_id", null: false
-    t.integer  "to_user_id",   null: false
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.integer  "from_user_id",                 null: false
+    t.integer  "to_user_id",                   null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.integer  "deleted_at"
+    t.boolean  "is_blocked",   default: false, null: false
     t.index ["from_user_id", "to_user_id"], name: "index_follows_on_from_user_id_and_to_user_id", unique: true
     t.index ["from_user_id"], name: "index_follows_on_from_user_id"
     t.index ["to_user_id"], name: "index_follows_on_to_user_id"
@@ -26,7 +28,7 @@ ActiveRecord::Schema.define(version: 20170209155159) do
     t.string   "content",    null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer  "room_id"
+    t.integer  "room_id",    null: false
     t.integer  "deleted_at"
     t.index ["room_id"], name: "index_messages_on_room_id"
   end

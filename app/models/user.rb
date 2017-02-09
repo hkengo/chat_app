@@ -62,12 +62,21 @@ class User < ApplicationRecord
     self.follows_from.find_by(to_user_id: user.id).destroy
   end
   
+  def block(user)
+    self.follows_from.find_by(to_user_id: user.id).block
+  end
+  
   def following?(user)
     following.include?(user)
   end
   
   def followed_by?(user)
     followed.include?(user)
+  end
+  
+  def blocked?(user)
+    return false unless user = self.follows_from.find_by(to_user_id: user.id)
+    user.is_blocked?
   end
   
   private

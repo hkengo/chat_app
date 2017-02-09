@@ -22,7 +22,6 @@ class Room < ApplicationRecord
   
   validates :name, length: { maximum: 100 }
   validates :participants, presence: true
-  validates :is_group, presence: true, default: false
   
   scope :groups, -> {
     where('participants > 2')

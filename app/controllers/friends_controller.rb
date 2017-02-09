@@ -1,5 +1,5 @@
 class FriendsController < ApplicationController
-  before_action :set_user, only: [:follow, :unfollow]
+  before_action :set_user, only: [:follow, :unfollow, :block]
   
   def index
     @group_rooms = current_user.rooms.groups
@@ -23,11 +23,14 @@ class FriendsController < ApplicationController
   
   def follow
     if current_user.following?(@user)
-      flash.now[:alert] = "#{@user.email}はすでに友達になっています。"
+      flash.now[:alert] = "#{@user.name}はすでに友達になっています。"
       render 'new'
+    elsif current_user.blocked?(@user)
+      flash.now[:notice] = "#{@user.name}のブロックを解除しました。"
+      redirect_to users_url(@user)
     else
       current_user.follow(@user)
-      flash.now[:notice] = "#{@user.email}を友達に追加しました。"
+      flash.now[:notice] = "#{@user.name}を友達に追加しました。"
       redirect_to users_url(@user)
     end
   end
@@ -35,7 +38,13 @@ class FriendsController < ApplicationController
   def unfollow
     current_user.unfollow(@user)
     
-    redirect_to 'index', alert: "#{@user.email}をブロックしました。"
+    redirect_to rooms_url, alert: "#{@user.name}の友達を解除しました。"
+  end
+  
+  def block
+    current_user.block(@user)
+    
+    redirect_to rooms_path, alert: "#{@user.name}をブロックしました。"
   end
   
   private

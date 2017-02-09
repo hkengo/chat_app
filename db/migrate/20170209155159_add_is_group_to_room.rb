@@ -7,6 +7,6 @@ class AddIsGroupToRoom < ActiveRecord::Migration[5.0]
   end
   
   def down
-    drop_column :rooms, :is_group
+    remove_column :rooms, :is_group
   end
 end

@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :friends, only: [:index, :new] do
     patch :follow
     patch :unfollow
+    patch :block
   end
   namespace :friends do
     patch :search

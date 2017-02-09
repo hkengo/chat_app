@@ -6,7 +6,7 @@
 #  content    :string           not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  room_id    :integer
+#  room_id    :integer          not null
 #  deleted_at :integer
 #
 
