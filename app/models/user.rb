@@ -23,6 +23,7 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  name                   :string           not null
+#  deleted_at             :integer
 #
 
 class User < ApplicationRecord

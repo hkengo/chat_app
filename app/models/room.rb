@@ -2,12 +2,15 @@
 #
 # Table name: rooms
 #
-#  id         :integer          not null, primary key
-#  name       :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id           :integer          not null, primary key
+#  name         :string
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  deleted_at   :integer
+#  participants :integer          not null
+#  is_group     :boolean          default("f"), not null
 #
-# TODO グループチャットかのフラグを持たせる
+
 class Room < ApplicationRecord
   acts_as_paranoid
   
