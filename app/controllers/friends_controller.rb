@@ -13,9 +13,9 @@ class FriendsController < ApplicationController
     @user = User.find_by(email: params[:email])
     
     if @user
-      flash[:notice] = "#{params[:email]}が見つかりました！"
+      flash.now[:notice] = "#{params[:email]}が見つかりました！"
     else
-      flash[:alert] = "#{params[:email]}は見つかりません。"
+      flash.now[:alert] = "#{params[:email]}は見つかりません。"
     end
     
     render 'new'
@@ -23,11 +23,11 @@ class FriendsController < ApplicationController
   
   def follow
     if current_user.following?(@user)
-      flash[:alert] = "#{@user.email}はすでに友達になっています。"
+      flash.now[:alert] = "#{@user.email}はすでに友達になっています。"
       render 'new'
     else
       current_user.follow(@user)
-      flash[:notice] = "#{@user.email}を友達に追加しました。"
+      flash.now[:notice] = "#{@user.email}を友達に追加しました。"
       redirect_to users_url(@user)
     end
   end

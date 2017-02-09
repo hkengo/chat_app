@@ -10,10 +10,10 @@ class RoomsController < ApplicationController
     @room = current_user.rooms.create(room_params)
     add_users if params[:user_emails].present?
     
-    if flash[:alert]
+    if flash.now[:alert]
       render 'edit'
     else
-      redirect_to room_url(@room), notice: flash[:notice]
+      redirect_to room_url(@room), notice: flash.now[:notice]
     end
   end
   
@@ -24,17 +24,17 @@ class RoomsController < ApplicationController
     @room.update(room_params)
     add_users if params[:user_emails].present?
     
-    if flash[:alert]
+    if flash.now[:alert]
       render 'edit'
     else
-      redirect_to root_url, notice: flash[:notice]
+      redirect_to root_url, notice: flash.now[:notice]
     end
   end
   
   def destroy
     @room.destroy
     
-    redirect_to root_url, notice: flash[:notice]
+    redirect_to root_url, notice: flash.now[:notice]
   end
   
   def index
@@ -74,8 +74,8 @@ class RoomsController < ApplicationController
       end
     end
     
-    flash[:notice] = "友達を追加しました。#{add_cuccess.join(' ')}" unless add_cuccess.empty?
-    flash[:alert] = "友達を追加できませんでした。#{add_fail.join(' ')}" unless add_fail.empty?
+    flash.now[:notice] = "友達を追加しました。#{add_cuccess.join(' ')}" unless add_cuccess.empty?
+    flash.now[:alert] = "友達を追加できませんでした。#{add_fail.join(' ')}" unless add_fail.empty?
     
     if add_fail.empty?
       return_users
