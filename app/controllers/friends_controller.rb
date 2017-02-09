@@ -33,10 +33,9 @@ class FriendsController < ApplicationController
   end
   
   def unfollow
-    
     current_user.unfollow(@user)
     
-    render
+    redirect_to 'index', alert: "#{@user.email}をブロックしました。"
   end
   
   private
