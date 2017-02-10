@@ -1,24 +1,61 @@
-# README
+## herokuへのデプロイ方法
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### redistogoの設定
+```
+$ heroku addons:create redistogo
+```
 
-Things you may want to cover:
+環境変数を設定(`seacrets.yml`にて読まれる)
+```ruby
+ENV["REDISTOGO_URL"] = 'redis://username:password@my.host:6389'
+```
 
-* Ruby version
+```ruby
+uri = URI.parse(ENV["REDISTOGO_URL"])
+REDIS = Redis.new(:host => uri.host, :port => uri.port, :password => uri.password)
+```
 
-* System dependencies
+```ruby
+uri = URI.parse(ENV["REDISTOGO_URL"])
+REDIS = Redis.new(:url => uri)
+```
 
-* Configuration
+```ruby
+ENV["REDIS_URL"] = ENV["REDISTOGO_URL"] = 'redis://username:password@my.host:6389'
+```
 
-* Database creation
+### デプロイ
+heroku上にサーバー作成
+```
+$ heroku create APP_NAME
+```
+herokuにmasterをpush
+```
+$ git push heroku master
+```
+herokuにfor_herokuブランチをpush
+```
+$ git push heroku for_heroku:master
+```
+サーバーの再起動
+```
+$ heroku restart -app APP_NAME
+```
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+### 設定確認
+herokuのログを見る(リアルタイム)
+```
+$ heroku logs --tail
+```
+herokuのサーバー情報
+```
+$ heroku info
+```
+herokuの環境変数一覧
+```
+$ heroku config
+```
+herokuのアプリをブラウザで開く
+```
+$ heroku open
+```
