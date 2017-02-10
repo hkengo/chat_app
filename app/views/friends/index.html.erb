@@ -4,6 +4,12 @@
     <p><%= link_to user.name, users_path(user) %>　<%= link_to "ブロック解除", friend_unblock_path(user), method: :patch %></p>
   <% end %>
 
+<% elsif @followed_users %>
+  <h2>友達</h2>
+  <% @followed_users.each do |user| %>
+    <p><%= link_to user.name, users_path(user) %>　<%= link_to "友達に追加", friend_follow_path(user), method: :patch %></p>
+  <% end %>
+
 <% else %>
   <h2>グループ</h2>
   <% @group_rooms.each do |room| %>

@@ -40,7 +40,7 @@ class User < ApplicationRecord
   has_many :follows_from, class_name: Follow, foreign_key: :from_user_id, dependent: :destroy
   has_many :follows_to,   class_name: Follow, foreign_key: :to_user_id,   dependent: :destroy
   has_many :following_with_blocked, through: :follows_from, source: :to_user
-  has_many :followed,  through: :follows_to,   source: :from_user
+  has_many :followed_with_blocked,  through: :follows_to,   source: :from_user
   
   validates :name, presence: true
   
@@ -50,13 +50,21 @@ class User < ApplicationRecord
               .find_by('users.id = ? and rooms.participants = 2', user.id)
   end
   
+  def recommend_users
+    self.followed - self.mutual_following - self.blocked_users
+  end
+  
   def mutual_following
     self.following & self.followed
   end
   
-  # TODO テーブルの取得吟味（following・block_users）
+  # TODO テーブルの取得吟味（following・followed・block_users）
   def following
     self.follows_from.where(is_blocked: false).map{|model| model.to_user }
+  end
+  
+  def followed
+    self.follows_to.where(is_blocked: false).map{|model| model.from_user }
   end
   
   def blocked_users

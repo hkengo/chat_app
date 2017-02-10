@@ -4,6 +4,8 @@ class FriendsController < ApplicationController
   def index
     if params[:options] == 'blocked'
       @blocked_users = current_user.blocked_users
+    elsif params[:options] == 'recommend'
+      @followed_users = current_user.recommend_users
     else
       @group_rooms = current_user.rooms.groups
       @friend_users = current_user.following
