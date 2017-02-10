@@ -2,18 +2,20 @@
 #
 # Table name: rooms
 #
-#  id           :integer          not null, primary key
-#  name         :string
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  deleted_at   :integer
-#  participants :integer          default("0"), not null
-#  is_group     :boolean          default("f"), not null
+#  id                        :integer          not null, primary key
+#  name                      :string
+#  created_at                :datetime         not null
+#  updated_at                :datetime         not null
+#  deleted_at                :integer
+#  participants              :integer          default("0"), not null
+#  is_group                  :boolean          default("f"), not null
+#  latest_message_created_at :integer
 #
 
 class Room < ApplicationRecord
   acts_as_paranoid
   
+  after_initialize :set_latest_message_created_at
   before_save :set_participants
   
   has_many :messages
@@ -29,6 +31,10 @@ class Room < ApplicationRecord
   
   scope :one_on_one, -> {
     where(participants: 2)
+  }
+  
+  scope :newest, -> {
+    order("latest_message_created_at DESC")
   }
   
   def title
@@ -61,6 +67,10 @@ class Room < ApplicationRecord
   end
   
   private
+  
+  def set_latest_message_created_at
+    self.latest_message_created_at = self.created_at
+  end
   
   def set_participants
     self.participants = self.users.count

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170209232406) do
+ActiveRecord::Schema.define(version: 20170209234232) do
 
   create_table "follows", force: :cascade do |t|
     t.integer  "from_user_id",                 null: false
@@ -32,15 +32,18 @@ ActiveRecord::Schema.define(version: 20170209232406) do
     t.integer  "deleted_at"
     t.integer  "user_id",    null: false
     t.index ["room_id"], name: "index_messages_on_room_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
   create_table "rooms", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
     t.integer  "deleted_at"
-    t.integer  "participants", default: 0,     null: false
-    t.boolean  "is_group",     default: false, null: false
+    t.integer  "participants",              default: 0,     null: false
+    t.boolean  "is_group",                  default: false, null: false
+    t.datetime "latest_message_created_at"
+    t.index ["latest_message_created_at"], name: "index_rooms_on_latest_message_created_at"
     t.index ["participants"], name: "index_rooms_on_participants"
   end
 

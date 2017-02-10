@@ -2,6 +2,6 @@
 
 <% if @rooms.present? %>
   <% @rooms.each do |room| %>
-    <p><%= link_to room.title, room_path(room) %>　　<%= link_to "編集", edit_room_path(room) %>　<%= link_to "削除", room_path(room), method: :delete, data: { confirm: "本当にチャットルーム#{room.name}を削除しますか？" } %></p>
+    <p><%= room.latest_message_created_at.strftime("%d日 (%H:%M)") %>　<%= link_to room.title, room_path(room) %>　　<%= link_to "編集", edit_room_path(room) %>　<%= link_to "削除", room_path(room), method: :delete, data: { confirm: "本当にチャットルーム#{room.name}を削除しますか？" } %></p>
   <% end %>
 <% end %>
