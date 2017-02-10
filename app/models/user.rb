@@ -59,7 +59,7 @@ class User < ApplicationRecord
     self.follows_from.where(is_blocked: false).map{|model| model.to_user }
   end
   
-  def block_users
+  def blocked_users
     self.follows_from.where(is_blocked: true).map{|model| model.to_user }
   end
   

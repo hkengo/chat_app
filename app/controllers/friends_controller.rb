@@ -2,8 +2,12 @@ class FriendsController < ApplicationController
   before_action :set_user, only: [:follow, :unfollow, :block, :unblock]
   
   def index
-    @group_rooms = current_user.rooms.groups
-    @friend_users = current_user.following
+    if params[:options] == 'blocked'
+      @blocked_users = current_user.blocked_users
+    else
+      @group_rooms = current_user.rooms.groups
+      @friend_users = current_user.following
+    end
   end
   
   def new

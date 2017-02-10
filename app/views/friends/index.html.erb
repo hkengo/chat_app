@@ -1,11 +1,19 @@
-<h2>グループ</h2>
-<% @group_rooms.each do |room| %>
-  <%= link_to room.title, room_path(room) %>
-<% end %>
+<% if @blocked_users %>
+  <h2>友達</h2>
+  <% @blocked_users.each do |user| %>
+    <p><%= link_to user.name, users_path(user) %>　<%= link_to "ブロック解除", friend_unblock_path(user), method: :patch %></p>
+  <% end %>
 
-<h2>友達</h2>
-<% @friend_users.each do |user| %>
-  <p><%= link_to user.name, users_path(user) %>　<%= link_to "ブロック", friend_block_path(user), method: :patch %></p>
-<% end %>
+<% else %>
+  <h2>グループ</h2>
+  <% @group_rooms.each do |room| %>
+    <%= link_to room.title, room_path(room) %>
+  <% end %>
 
-<%= link_to "+（友達を探す）", new_friend_path %>
+  <h2>友達</h2>
+  <% @friend_users.each do |user| %>
+    <p><%= link_to user.name, users_path(user) %>　<%= link_to "ブロック", friend_block_path(user), method: :patch %></p>
+  <% end %>
+
+  <%= link_to "+（友達を探す）", new_friend_path %>
+<% end %>
