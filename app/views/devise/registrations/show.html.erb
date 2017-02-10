@@ -10,7 +10,9 @@
   name: <%= @user.name %>
 </div>
 
-<% if @one_on_one_room %>
+<% if current_user == @user %>
+  <%# TODO 自分の詳細ページ処理 %>
+<% elsif @one_on_one_room %>
   <%= link_to "チャット", room_path(@one_on_one_room) %>
 <% else %>
   <%= form_tag(rooms_path, method: "post") do %>

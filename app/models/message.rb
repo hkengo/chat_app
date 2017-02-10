@@ -20,7 +20,7 @@ class Message < ApplicationRecord
   validates :user_id, presence: true
   
   after_create_commit { MessageBroadcastJob.perform_later self }
-  after_save :update_latest_message_created_at
+  before_create :update_latest_message_created_at
   
   scope :order_for_chat_room, -> {
     order("created_at ASC")
@@ -33,6 +33,6 @@ class Message < ApplicationRecord
   private
   
   def update_latest_message_created_at
-    self.room.update(latest_message_created_at: self.created_at)
+    self.room.update!(latest_message_created_at: self.created_at)
   end
 end
