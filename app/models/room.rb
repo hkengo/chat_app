@@ -15,7 +15,7 @@
 class Room < ApplicationRecord
   acts_as_paranoid
   
-  after_initialize :set_latest_message_created_at
+  before_create :set_latest_message_created_at
   before_save :set_participants
   
   has_many :messages
