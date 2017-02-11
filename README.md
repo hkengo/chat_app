@@ -1,3 +1,6 @@
+## デプロイ先uURL
+https://chat-app-rails.herokuapp.com
+
 ## herokuへのデプロイ方法
 
 ### redistogoの設定
