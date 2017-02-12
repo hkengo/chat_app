@@ -1,4 +1,4 @@
-## デプロイ先uURL
+## デプロイ先URL
 https://chat-app-rails.herokuapp.com
 
 ## herokuへのデプロイ方法
